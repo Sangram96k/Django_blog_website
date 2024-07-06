@@ -1,0 +1,647 @@
+{% extends 'main/base.html' %}
+{% block content %} 
+{% load static %} 
+
+{% comment %} <!-- 
+    - #SEARCH BAR
+  -->
+
+  <div class="search-bar" data-search-bar>
+
+    <div class="input-wrapper">
+      <input type="search" name="search" placeholder="Search" class="input-field">
+
+      <button class="search-close-btn" aria-label="close search bar" data-search-toggler>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+
+    </div>
+
+    <p class="search-bar-text">Please enter at least 3 characters</p>
+
+  </div>
+
+  <div class="overlay" data-overlay data-search-toggler></div>
+ {% endcomment %}
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero" aria-label="home">
+        <div class="slider">
+          <div class="list">
+              <div class="item">
+                  <img src="{% static "/assets/img/1.jpg" %}" alt="">
+                  <div class="content">
+                      <h2>Blog Post Title 1</h2>
+                      <p>Snippet of the blog post content...</p>
+                      <a href="post1.html">Read more</a>
+                  </div>
+              </div>
+              <div class="item">
+                  <img src="{% static "/assets/img/2.jpg" %}" alt="">
+                  <div class="content">
+                      <h2>Blog Post Title 1</h2>
+                      <p>Snippet of the blog post content...</p>
+                      <a href="post1.html">Read more</a>
+                  </div>
+              </div>
+              <div class="item">
+                  <img src="{% static "/assets/img/3.jpg" %}" alt="">
+                  <div class="content">
+                      <h2>Blog Post Title 1</h2>
+                      <p>Snippet of the blog post content...</p>
+                      <a href="post1.html">Read more</a>
+                  </div>
+              </div>
+              <div class="item">
+                  <img src="{% static "/assets/img/4.jpg" %}" alt="">
+                  <div class="content">
+                      <h2>Blog Post Title 2</h2>
+                      <p>Snippet of the blog post content...</p>
+                      <a href="#">Read more</a>
+                  </div>
+              </div>
+              <!-- Add more items as needed -->
+          </div>
+          <div class="buttons">
+              <button id="prev"><</button>
+              <button id="next">></button>
+          </div>
+          <ul class="dots">
+              <li class="active"></li>
+              <li></li>
+              <li></li>
+              <li></li>
+
+              <!-- Add more dots as needed -->
+          </ul>
+      </div>
+      
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #FEATURED POST
+      -->
+
+      <section class="section featured" aria-label="featured post">
+        <div class="container">
+
+          <p class="section-subtitle">
+            These Are The <strong class="strong">Recent Posts</strong>
+          </p>
+
+          <ul class="has-scrollbar">
+
+             
+            {% for i in post %}
+            <li class="scrollbar-item">
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 500; --height: 600;">
+                  <img src="{{i.post_img.url}}" width="500" height="600" loading="lazy"
+                    alt="Perfection has to do with the end product" class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        {% if i.author_img %}
+                        <img src="{{i.author_img.url}}" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                          {% else %}
+                          <img src="{% static "./assets/images/author-5.jpg" %}" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                          {% endif %}
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <ul class="card-meta-list">
+
+                   
+                    <li>
+                        <a href="#" class="card-tag">{{ i.cat }}</a>
+                    </li>
+                   
+
+                    {% comment %} <li>
+                      <a href="#" class="card-tag">Creative</a>
+                    </li>
+
+                    <li>
+                      <a href="#" class="card-tag">Idea</a>
+                    </li> {% endcomment %}
+
+                  </ul>
+
+                  <h3 class="h4">
+                    <a href="{% url 'post_detail' slug=i.slug %}" class="card-title hover:underline">
+                      {{i.title}}
+                    </a>
+                  </h3>
+
+                  <p class="card-text">
+                   <a href="{% url 'post_detail' slug=i.slug %}"> {{ i.content|striptags|truncatechars:100 }}</a>
+                  </p>
+                </div>
+                
+              </div>
+              <a href="{% url 'post_detail' slug=i.slug %}" class="read-more">Read More</a>
+            </li>
+            {% endfor %}
+            
+            {% comment %} <li class="scrollbar-item">
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 500; --height: 600;">
+                  <img src="./assets/images/featured-2.jpg" width="500" height="600" loading="lazy"
+                    alt="It’s a new era in design, there are no rules" class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-3.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <ul class="card-meta-list">
+
+                    <li>
+                      <a href="#" class="card-tag">Creative</a>
+                    </li>
+
+                    <li>
+                      <a href="#" class="card-tag">Product</a>
+                    </li>
+
+                  </ul>
+
+                  <h3 class="h4">
+                    <a href="#" class="card-title hover:underline">
+                      It’s a new era in design, there are no rules
+                    </a>
+                  </h3>
+
+                  <p class="card-text">
+                    Quibus autem in rebus tanta obscuratio non fit, fieri tamen potest, ut id ipsum, quod interest, non
+                    sit magnum. Ita fit
+                    ut, quanta differentia est in principiis naturalibus, tanta sit in finibus bonorum malorumque
+                    dissimilitudo.
+                  </p>
+
+                </div>
+
+              </div>
+            </li> {% endcomment %}
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #RECENT POST
+      -->
+
+      <section class="section recent" aria-label="recent post">
+        <div class="container">
+
+          <div class="title-wrapper">
+
+            <h2 class="h2 section-title">
+              See what we’ve <strong class="strong">written lately</strong>
+            </h2>
+
+            {% comment %} <div class="top-author">
+              <ul class="avatar-list">
+
+                <li class="avatar-item">
+                  <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+                    <img src="{% static "./assets/images/author-1.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+                  </a>
+                </li>
+
+                <li class="avatar-item">
+                  <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+                    <img src="{% static "./assets/images/author-2.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+                  </a>
+                </li>
+
+                <li class="avatar-item">
+                  <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+                    <img src="{% static "./assets/images/author-3.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+                  </a>
+                </li>
+
+                <li class="avatar-item">
+                  <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+                    <img src="{% static "./assets/images/author-4.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+                  </a>
+                </li>
+
+                <li class="avatar-item">
+                  <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+                    <img src="{% static "./assets/images/author-5.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+                  </a>
+                </li>
+
+              </ul>
+
+              <span class="span">Meet our top authors</span>
+            </div> {% endcomment %}
+
+          </div>
+
+          <ul class="grid-list">
+               {% for post in all_post %}
+            <li>
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 550; --height: 660;">
+                  <img src="{{post.post_img.url}}" width="550" height="660" loading="lazy"
+                    alt="Creating is a privilege but it’s also a gift" class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        {% if post.author_img %}
+                        <img src="{{post.author_img.url}}" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                          {% else %}
+                          <img src="{% static "./assets/images/author-5.jpg" %}" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                          {% endif %}
+                      </a>
+                    </li>
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-5.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <ul class="card-meta-list">
+
+                    <li>
+                      <a href="#" class="card-tag">{{ post.cat }}</a>
+                  </li>
+
+                  </ul>
+
+                  <h3 class="h4">
+                    <a href="{{ post.get_absolute_url }}" class="card-title hover:underline">
+                     {{post.title}}
+                    </a>
+                  </h3>
+
+                  <p class="card-text">
+                    {{ post.content|striptags|truncatechars:100 }}
+                  </p>
+
+                </div>
+
+              </div>
+              <a href="{{ post.get_absolute_url }}" class="read-more">Read More</a>
+            </li>
+
+            
+            {% endfor %}
+           
+
+            
+
+          </ul>
+
+          {% comment %} <button class="btn">Load more</button> {% endcomment %}
+         <!-- Add this to your HTML file -->
+         {% comment %} <div class="pagination">
+          {% if all_post.has_previous %}
+              <a href="?page={{ all_post.previous_page_number }}" class="pagination-link previous">Previous</a>
+          {% endif %}
+          <span class="pagination-info">Page {{ all_post.number }} of {{ paginator.num_pages }}</span>
+          {% if all_post.has_next %}
+              <a href="?page={{ all_post.next_page_number }}" class="pagination-link next">Next</a>
+          {% endif %}
+      </div>
+       {% endcomment %}
+       <div class="pagination">
+        {% if all_post.has_previous %}
+            <a href="?page={{ all_post.previous_page_number }}" class="pagination-link">&laquo;</a>
+        {% else %}
+            <span class="pagination-disabled">&laquo;</span>
+        {% endif %}
+    
+        {% for num in all_post.paginator.page_range %}
+            {% if all_post.number == num %}
+                <span class="pagination-link active">{{ num }}</span>
+            {% elif num > all_post.number|add:'-5' and num < all_post.number|add:'5' %}
+                <a href="?page={{ num }}" class="pagination-link">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+    
+        {% if all_post.has_next %}
+            <a href="?page={{ all_post.next_page_number }}" class="pagination-link">&raquo;</a>
+        {% else %}
+            <span class="pagination-disabled">&raquo;</span>
+        {% endif %}
+    </div>
+    
+
+
+
+</div>
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #RECOMMENDED POST
+      -->
+
+      <section class="section recommended" aria-label="recommended post">
+        <div class="container">
+
+          <p class="section-subtitle">
+            <strong class="strong">Recommended</strong>
+          </p>
+
+          <ul class="grid-list">
+
+            <li >
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+                  <img src="./assets/images/recommended-1.jpg" width="300" height="360" loading="lazy"
+                    alt="The trick to getting more done is to have the freedom to roam around " class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-5.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-2.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h5">
+                    <a href="#" class="card-title hover:underline">
+                      The trick to getting more done is to have the freedom to roam around
+                    </a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+                  <img src="./assets/images/recommended-2.jpg" width="300" height="360" loading="lazy"
+                    alt="Every day, in every city and town across the country " class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-3.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h5">
+                    <a href="#" class="card-title hover:underline">
+                      Every day, in every city and town across the country
+                    </a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+                  <img src="./assets/images/recommended-3.jpg" width="300" height="360" loading="lazy"
+                    alt="I work best when my space is filled with inspiration " class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-1.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h5">
+                    <a href="#" class="card-title hover:underline">
+                      I work best when my space is filled with inspiration
+                    </a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+                  <img src="./assets/images/recommended-4.jpg" width="300" height="360" loading="lazy"
+                    alt="I have my own definition of minimalism " class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-4.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-3.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h5">
+                    <a href="#" class="card-title hover:underline">
+                      I have my own definition of minimalism
+                    </a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+                  <img src="./assets/images/recommended-5.jpg" width="300" height="360" loading="lazy"
+                    alt="Change your look and your attitude " class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-6.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h5">
+                    <a href="#" class="card-title hover:underline">
+                      Change your look and your attitude
+                    </a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+                  <img src="./assets/images/recommended-6.jpg" width="300" height="360" loading="lazy"
+                    alt="The difference is quality " class="img-cover">
+
+                  <ul class="avatar-list absolute">
+
+                    <li class="avatar-item">
+                      <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                        <img src="./assets/images/author-3.jpg" width="100" height="100" loading="lazy" alt="Author"
+                          class="img-cover">
+                      </a>
+                    </li>
+
+                  </ul>
+                </figure>
+
+                <div class="card-content">
+
+                  <h3 class="h5">
+                    <a href="#" class="card-title hover:underline">
+                      The difference is quality
+                    </a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #NEWSLETTER
+      -->
+
+      <section class="section newsletter">
+
+        <h2 class="h2 section-title">
+          Subscribe to <strong class="strong">new posts</strong>
+        </h2>
+
+        <form action="" class="newsletter-form">
+          <input type="email" name="email_address" placeholder="Your email address" required class="email-field">
+
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+
+      </section>
+
+    </article>
+  </main>
+
+
+
+{% endblock %}

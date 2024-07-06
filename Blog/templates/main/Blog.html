@@ -1,0 +1,171 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% load static %} 
+
+<section class="section recent" aria-label="recent post">
+  <div class="container">
+
+    <div class="title-wrapper">
+
+      <h2 class="h2 section-title">
+      <strong class="strong">All Blogsposts:</strong>
+      </h2>
+      <div class="post-filter container">
+        <span class="filter-item active-filter" data-filter="all">All</span>
+        <span class="filter-item" data-filter="Cybersecurity">Cybersecurity</span>
+        <span class="filter-item" data-filter="Lifestyle">Lifestyle</span>
+        <span class="filter-item" data-filter="recommended">Recommended</span>
+      </div>
+
+      {% comment %} <div class="top-author">
+        <ul class="avatar-list">
+
+          <li class="avatar-item">
+            <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+              <img src="{% static "./assets/images/author-1.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+            </a>
+          </li>
+
+          <li class="avatar-item">
+            <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+              <img src="{% static "./assets/images/author-2.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+            </a>
+          </li>
+
+          <li class="avatar-item">
+            <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+              <img src="{% static "./assets/images/author-3.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+            </a>
+          </li>
+
+          <li class="avatar-item">
+            <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+              <img src="{% static "./assets/images/author-4.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+            </a>
+          </li>
+
+          <li class="avatar-item">
+            <a href="#" class="avatar large img-holder" style="--width: 100; --height: 100;">
+              <img src="{% static "./assets/images/author-5.jpg" %}" width="100" height="100" alt="top author" class="img-cover">
+            </a>
+          </li>
+
+        </ul>
+
+        <span class="span">Meet our top authors</span>
+      </div> {% endcomment %}
+
+    </div>
+
+    <ul class="grid-list">
+         {% for post in posts %}
+      <li>
+        <div class="blog-card" data-category="{{ post.cat }}" >
+
+          <figure class="card-banner img-holder" style="--width: 550; --height: 660;">
+            <img src="{{post.post_img.url}}" width="550" height="660" loading="lazy"
+              alt="Creating is a privilege but it’s also a gift" class="img-cover">
+
+            <ul class="avatar-list absolute">
+
+              <li class="avatar-item">
+                <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                  {% if post.author_img %}
+                  <img src="{{post.author_img.url}}" width="100" height="100" loading="lazy" alt="Author"
+                    class="img-cover">
+                    {% else %}
+                    <img src="{% static "./assets/images/author-5.jpg" %}" width="100" height="100" loading="lazy" alt="Author"
+                    class="img-cover">
+                    {% endif %}
+                </a>
+              </li>
+
+              <li class="avatar-item">
+                <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                  <img src="./assets/images/author-5.jpg" width="100" height="100" loading="lazy" alt="Author"
+                    class="img-cover">
+                </a>
+              </li>
+
+            </ul>
+          </figure>
+
+          <div class="card-content">
+
+            <ul class="card-meta-list">
+
+              <li>
+                <a href="#" class="card-tag">{{ post.cat }}</a>
+            </li>
+           
+
+              
+
+            </ul>
+
+            <h3 class="h4">
+              <a href="#" class="card-title hover:underline">
+               {{post.title}}
+              </a>
+            </h3>
+
+            <p class="card-text">
+              {{post.content}}
+            </p>
+
+          </div>
+
+        </div>
+      </li>
+
+      
+      {% endfor %}
+     
+
+      
+
+    </ul>
+
+    {% comment %} <button class="btn">Load more</button> {% endcomment %}
+   <!-- Add this to your HTML file -->
+   {% comment %} <div class="pagination">
+    {% if all_post.has_previous %}
+        <a href="?page={{ all_post.previous_page_number }}" class="pagination-link previous">Previous</a>
+    {% endif %}
+    <span class="pagination-info">Page {{ all_post.number }} of {{ paginator.num_pages }}</span>
+    {% if all_post.has_next %}
+        <a href="?page={{ all_post.next_page_number }}" class="pagination-link next">Next</a>
+    {% endif %}
+</div>
+ {% endcomment %}
+ <div class="pagination">
+  {% if all_post.has_previous %}
+      <a href="?page={{ all_post.previous_page_number }}" class="pagination-link">&laquo;</a>
+  {% else %}
+      <span class="pagination-disabled">&laquo;</span>
+  {% endif %}
+
+  {% for num in all_post.paginator.page_range %}
+      {% if all_post.number == num %}
+          <span class="pagination-link active">{{ num }}</span>
+      {% elif num > all_post.number|add:'-5' and num < all_post.number|add:'5' %}
+          <a href="?page={{ num }}" class="pagination-link">{{ num }}</a>
+      {% endif %}
+  {% endfor %}
+
+  {% if all_post.has_next %}
+      <a href="?page={{ all_post.next_page_number }}" class="pagination-link">&raquo;</a>
+  {% else %}
+      <span class="pagination-disabled">&raquo;</span>
+  {% endif %}
+</div>
+
+
+
+
+</div>
+  </div>
+</section>
+  
+{% endblock %}

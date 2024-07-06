@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    {% load static %} 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 
+      - primary meta tags
+      -->
+      <title>Blogy - Hey, we’re Blogy. See our thoughts, stories and ideas.</title>
+      <meta name="title" content="Blogy - Hey, we’re Blogy. See our thoughts, stories and ideas.">
+      <meta name="description" content="This is a blog html template made by codewithsadee">
+      
+
+
+
+      {% block canonical_url %}
+        <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    {% endblock %}
+      <!-- 
+        - favicon
+        -->
+        <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+        
+        <!-- 
+          - custom css link
+          -->
+          <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+          
+          <!-- 
+            - google font link
+            -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-j4p5b+0t/zp1lvjz+/lEa77H4i5Sd3APqTgk/O+5fvNPBecLp2wI9ZKf8Xzj3MRu/7b49X3VH9kK3j9H6+hG0Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
+            {% block schema_json %}
+        <script type="application/ld+json">
+            {% block schema_markup %}
+                {# Default to empty schema markup if not overridden in child templates #}
+            {% endblock %}
+        </script>
+    {% endblock %}
+          </head>
+          
+          <body>
+            <div id="pre-loader" class="loader-container">
+                <div class="loader">
+                 <?xml version="1.0" encoding="utf-8"?>
+
+        <!-- Rotating Squares -->
+        <svg
+          width="100px"
+          height="100px"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="xMidYMid"
+        >
+          <g transform="translate(25 25)">
+            <rect x="-15" y="-15" width="30" height="30" fill="#2e2e2e">
+              <animateTransform
+                attributeName="transform"
+                type="scale"
+                begin="0s"
+                values="1.5;1;1.5"
+                keyTimes="0;0.5;1"
+                dur="1s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </rect>
+          </g>
+          <g transform="translate(75 25)">
+            <rect x="-15" y="-15" width="30" height="30" fill="#ff6060">
+              <animateTransform
+                attributeName="transform"
+                type="scale"
+                begin="0.1s"
+                values="1.5;1;1.5"
+                keyTimes="0;0.5;1"
+                dur="1s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </rect>
+          </g>
+          <g transform="translate(75 75)">
+            <rect x="-15" y="-15" width="30" height="30" fill="#2e2e2e">
+              <animateTransform
+                attributeName="transform"
+                type="scale"
+                begin="0.2s"
+                values="1.5;1;1.5"
+                keyTimes="0;0.5;1"
+                dur="1s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </rect>
+          </g>
+          <g transform="translate(25 75)">
+            <rect x="-15" y="-15" width="30" height="30" fill="#ff6060">
+              <animateTransform
+                attributeName="transform"
+                type="scale"
+                begin="0.3s"
+                values="1.5;1;1.5"
+                keyTimes="0;0.5;1"
+                dur="1s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </rect>
+          </g>
+        </svg>
+</div>
+</div>
+
+
+<header class="header section" data-header="">
+  <div class="container">
+      <a href="#" class="logo">
+        <img src="./assets/images/logo.svg" width="129" height="40" alt="Blogy logo">
+      </a>
+
+
+      <nav class="navbar" data-navbar="">
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="{% url 'Index' %}" class="navbar-link hover:underline" data-nav-link="">Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="{% url 'Blog' %}" class="navbar-link hover:underline" data-nav-link="">Blogs</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link hover:underline" data-nav-link="">About me</a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <div class="wrapper">
+
+        <button class="search-btn" aria-label="search" data-search-toggler="">
+          <ion-icon name="search-outline" aria-hidden="true" role="img" class="md hydrated"></ion-icon>
+
+          <span class="span">Search</span>
+        </button>
+
+        <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler="">
+          <span class="span one"></span>
+          <span class="span two"></span>
+          <span class="span three"></span>
+        </button>
+
+        <a href="#" class="btn">Join</a>
+
+      </div>
+
+    </div>
+  </header>
+   <!-- 
+    - #SEARCH BAR
+  -->
+
+  {% comment %} <div class="search-bar" data-search-bar>
+
+    <div class="input-wrapper">
+      <input type="search" name="search" placeholder="Search" class="input-field">
+
+      <button class="search-close-btn" aria-label="close search bar" data-search-toggler>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+
+    </div>
+
+    <p class="search-bar-text">Please enter at least 3 characters</p>
+
+  </div>
+
+  <div class="overlay" data-overlay data-search-toggler></div> {% endcomment %}
+
+  <div class="search-bar" data-search-bar>
+        <div class="input-wrapper">
+            <form action="{% url 'search' %}" method="get">
+                {% csrf_token %}
+                <input type="search" name="search" id="search-input" placeholder="Search" class="input-field" autocomplete="off">
+                <div id="suggestions"></div>
+                <button class="search-close-btn" aria-label="close search bar" data-search-toggler>
+                    <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+                </button>
+            </form>
+        </div>
+        <p class="search-bar-text">Please enter at least 3 characters</p>
+    </div>
+{% comment %}  {% endcomment %}
+
+
+{% comment %} enxtend part  {% endcomment %}
+
+{% block content %} {% endblock %}
+
+
+
+
+
+
+
+{% comment %}  {% endcomment %}
+
+
+
+
+
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer-top section">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <img src="./assets/images/logo.svg" width="129" height="40" alt="Blogy logo">
+          </a>
+
+          <p class="footer-text">
+            A minimal, functional theme for running a paid-membership publication on Ghost.
+          </p>
+
+        </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="h5">Social</p>
+          </li>
+
+          <li class="footer-list-item">
+            <ion-icon name="logo-facebook" role="img" class="md hydrated" aria-label="logo facebook"></ion-icon>
+
+            <a href="#" class="footer-link hover:underline">Facebook</a>
+          </li>
+
+          <li class="footer-list-item">
+            <ion-icon name="logo-twitter" role="img" class="md hydrated" aria-label="logo twitter"></ion-icon>
+
+            <a href="#" class="footer-link hover:underline">Twitter</a>
+          </li>
+
+          <li class="footer-list-item">
+            <ion-icon name="logo-pinterest" role="img" class="md hydrated" aria-label="logo pinterest"></ion-icon>
+
+            <a href="#" class="footer-link hover:underline">Pinterest</a>
+          </li>
+
+          <li class="footer-list-item">
+            <ion-icon name="logo-vimeo" role="img" class="md hydrated" aria-label="logo vimeo"></ion-icon>
+
+            <a href="#" class="footer-link hover:underline">Vimeo</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="h5">About</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Style Guide</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Features</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Contact</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">404</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Privacy Policy</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="h5">Features</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Upcoming Events</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Blog &amp; News</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Features</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">FAQ Question</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Testimonial</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="h5">Membership</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Account</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Membership</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Subscribe</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Tags</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link hover:underline">Authors</a>
+          </li>
+
+        </ul>
+
+      </div>
+
+      <div class="section footer-bottom">
+
+        <p class="copyright">
+          © Blogy 2022. Published by <a href="#" class="copyright-link hover:underline">codewithsadee</a>.
+        </p>
+
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="{% static "./assets/js/script.js" %}" defer></script>
+  <script src="{% static "./assets/js/loader.js" %}" defer></script>
+
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  {% comment %} <script>
+    $(document).ready(function() {
+        $("#search-input").keyup(function() {
+            var query = $(this).val();
+            if (query.length >= 3) {
+                $.ajax({
+                    url: "{% url 'autocomplete_search' %}",
+                    data: {
+                        'term': query
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $("#suggestions").empty();
+                        if (data.length > 0) {
+                            var suggestions = "<ul>";
+                            $.each(data, function(index, item) {
+                                suggestions += "<li>" + item.title + "</li>";
+                            });
+                            suggestions += "</ul>";
+                            $("#suggestions").html(suggestions);
+                        }
+                    }
+                });
+            } else {
+                $("#suggestions").empty();
+            }
+        });
+
+        $(document).on("click", "#suggestions li", function() {
+            $("#search-input").val($(this).text());
+            $("#suggestions").empty();
+        });
+    });
+</script> {% endcomment %}
+<script>
+  $(document).ready(function() {
+      $("#search-input").keyup(function() {
+          var query = $(this).val();
+          if (query.length >= 3) {
+              $.ajax({
+                  url: "{% url 'autocomplete_search' %}",
+                  data: {
+                      'term': query
+                  },
+                  dataType: 'json',
+                  success: function(data) {
+                      $("#suggestions").empty();
+                      if (data.length > 0) {
+                          var suggestions = "<ul>";
+                          $.each(data, function(index, item) {
+                              suggestions += "<li><a href='/post/" + item.slug + "/'>" + item.title + "</a></li>";
+                          });
+                          suggestions += "</ul>";
+                          $("#suggestions").html(suggestions);
+                      }
+                  }
+              });
+          } else {
+              $("#suggestions").empty();
+          }
+      });
+
+      $(document).on("click", "#suggestions a", function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        window.location.href = url;  // Navigate to the clicked URL
+    });
+  });
+  
+  
+  
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+{% extends 'main/base.html' %}
+
+{% block canonical_url %}
+    <link rel="canonical" href="{{ request.build_absolute_uri }}{{ post.get_absolute_url }}">
+{% endblock %}
+
+
+
+
+
+{% block schema_json %}
+    <script type="application/ld+json">
+        {{ post.schema_json | safe }}
+    </script>
+{% endblock %}
+{% block content %} 
+{% load static %} 
+
+<section class="post-detail-content">
+    <div class="post-container">
+        <nav aria-label="breadcrumb">
+            <ol class="post-breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'Index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">{{ post.cat.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+            </ol>
+        </nav>
+<hr>
+        <div class="post-header">
+            <h1 class="post-title">{{post.title}}</h1>
+            <ul class="post-meta">
+                <li><a href="#"><img src="{{ post.author_img }}" class="post-author" alt="author">{{post.author}}</a></li>
+                <li><a href="#">{{post.cat}}</a></li>
+                <li>{{post.published}}</li>
+            </ul>
+        </div>
+
+        <div class="post-body">
+            <p>{{post.content|safe}}</p>
+            {% comment %} <figure>
+                <img src="images/post-image.jpg" alt="Post Image">
+                <figcaption>A caption for the above image.</figcaption>
+            </figure> {% endcomment %}
+            
+        </div>
+
+        <div class="post-footer">
+            <div class="post-tags">
+                {% for tag in post.tags.all %}
+                <a href="#" class="post-tag">#{{ tag.name }}</a>
+            {% endfor %}
+            </div>
+            <div class="post-social-share">
+                <ul class="post-social-icons">
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                </ul>
+            </div>
+            
+        </div>
+        
+        <div class="comments-section">
+            <h2>Comments</h2>
+           
+            <div class="comment-form">
+                <h3>Leave a Comment</h3>
+                <form method="post" action="{% url 'post_detail' slug=post.slug %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="comment-list">
+                <h3>All Comments</h3>
+                {% for comment in comments %}
+                
+                <div class="comment">
+                    <div class="user_avatar">
+                        <img src="images/default-avatar.png" alt="User Avatar">
+                    </div>
+                    <div class="comment_body">
+                        <p><strong>{{ comment.name }}:</strong></p>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<br>
+<br>
+
+
+
+
+<section class="section featured" aria-label="featured post">
+    <div class="container">
+
+      <p class="section-subtitle">
+        These Are The <strong class="strong">Related Posts</strong>
+      </p>
+
+      <ul class="has-scrollbar">
+
+         
+        {% for related_post in related_posts %}
+        <li class="scrollbar-item">
+          <div class="blog-card">
+
+            <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+              <img src="{{related_post.post_img.url}}" width="300" height="360" loading="lazy"
+                alt="Perfection has to do with the end product" class="img-cover">
+
+              <ul class="avatar-list absolute">
+
+                <li class="avatar-item">
+                  <a href="#" class="avatar img-holder" style="--width: 100; --height: 100;">
+                    {% if related_post.author_img %}
+                    <img src="{{related_post.author_img.url}}" width="100" height="100" loading="lazy" alt="Author"
+                      class="img-cover">
+                      {% else %}
+                      <img src="{% static "./assets/images/author-5.jpg" %}" width="100" height="100" loading="lazy" alt="Author"
+                      class="img-cover">
+                      {% endif %}
+                  </a>
+                </li>
+
+              </ul>
+            </figure>
+
+            <div class="card-content">
+
+              <ul class="card-meta-list">
+
+               
+                <li>
+                    <a href="#" class="card-tag">{{ related_post.cat }}</a>
+                </li>
+               
+
+                {% comment %} <li>
+                  <a href="#" class="card-tag">Creative</a>
+                </li>
+
+                <li>
+                  <a href="#" class="card-tag">Idea</a>
+                </li> {% endcomment %}
+
+              </ul>
+
+              <h3 class="h4">
+                <a href="{% url 'post_detail' slug=related_post.slug %}" class="card-title hover:underline">
+                  {{related_post.title}}
+                </a>
+              </h3>
+
+              <p class="card-text">
+               <a href="{% url 'post_detail' slug=related_post.slug %}"> {{ related_post.content|striptags|truncatechars:100 }}</a>
+              </p>
+            </div>
+            
+          </div>
+          <a href="{% url 'post_detail' slug=related_post.slug %}" class="read-more">Read More</a>
+        </li>
+        {% endfor %}
+        
+        
+
+      </ul>
+
+    </div>
+  </section>
+
+
+  {% comment %} NEWSLETTER {% endcomment %}
+
+  <section class="section newsletter">
+
+    <h2 class="h2 section-title">
+      Subscribe to <strong class="strong">new posts</strong>
+    </h2>
+
+    <form action="" class="newsletter-form">
+      <input type="email" name="email_address" placeholder="Your email address" required class="email-field">
+
+      <button type="submit" class="btn">Subscribe</button>
+    </form>
+
+  </section>
+{%  endblock %}
